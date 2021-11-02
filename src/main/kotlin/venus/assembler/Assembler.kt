@@ -32,10 +32,11 @@ object Assembler {
 data class DebugInfo(val lineNo: Int, val line: String)
 data class DebugInstruction(val debug: DebugInfo, val LineTokens: List<String>)
 data class PassOneOutput(
-        val prog: Program,
-        val talInstructions: List<DebugInstruction>,
-        val errors: List<AssemblerError>
+    val prog: Program,
+    val talInstructions: List<DebugInstruction>,
+    val errors: List<AssemblerError>
 )
+
 data class AssemblerOutput(val prog: Program, val errors: List<AssemblerError>)
 
 /**
@@ -47,16 +48,22 @@ data class AssemblerOutput(val prog: Program, val errors: List<AssemblerError>)
 internal class AssemblerPassOne(private val text: String) {
     /** The program we are currently assembling */
     private val prog = Program()
+
     /** The text offset where the next instruction will be written */
     private var currentTextOffset = MemorySegments.TEXT_BEGIN
+
     /** The data offset where more data will be written */
     private var currentDataOffset = MemorySegments.STATIC_BEGIN
+
     /** Whether or not we are currently in the text segment */
     private var inTextSegment = true
+
     /** TAL Instructions which will be added to the program */
     private val talInstructions = ArrayList<DebugInstruction>()
+
     /** The current line number (for user-friendly errors) */
     private var currentLineNumber = 0
+
     /** List of all errors encountered */
     private val errors = ArrayList<AssemblerError>()
 
@@ -167,10 +174,10 @@ internal class AssemblerPassOne(private val text: String) {
                     throw AssemblerError("couldn't parse ${args[0]} as a string")
                 }
                 for (c in ascii) {
-                    if (c.toInt() !in 0..127) {
+                    if (c.code !in 0..127) {
                         throw AssemblerError("unexpected non-ascii character: $c")
                     }
-                    prog.addToData(c.toByte())
+                    prog.addToData(c.code.toByte())
                     currentDataOffset++
                 }
 
@@ -210,7 +217,7 @@ internal class AssemblerPassOne(private val text: String) {
      * @param label the label whose offset will later be given to the relocator.
      */
     fun addRelocation(relocator: Relocator, offset: Int, label: String) =
-            prog.addRelocation(relocator, label, offset)
+        prog.addRelocation(relocator, label, offset)
 }
 
 /**
@@ -222,6 +229,7 @@ internal class AssemblerPassOne(private val text: String) {
  */
 internal class AssemblerPassTwo(val prog: Program, val talInstructions: List<DebugInstruction>) {
     private val errors = ArrayList<AssemblerError>()
+
     /**
      * Executes pass two.
      *
@@ -261,4 +269,4 @@ internal class AssemblerPassTwo(val prog: Program, val talInstructions: List<Deb
  * @param tokens the tokens from the current line
  * @return the instruction (aka the first argument, in lowercase)
  */
-private fun getInstruction(tokens: LineTokens) = tokens[0].toLowerCase()
+private fun getInstruction(tokens: LineTokens) = tokens[0].lowercase()

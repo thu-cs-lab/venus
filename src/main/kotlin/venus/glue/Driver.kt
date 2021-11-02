@@ -1,5 +1,7 @@
 package venus.glue
 
+import kotlinx.browser.document
+import kotlinx.browser.window
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLTextAreaElement
 import venus.assembler.Assembler
@@ -8,8 +10,6 @@ import venus.linker.Linker
 import venus.riscv.InstructionField
 import venus.riscv.userStringToInt
 import venus.simulator.Simulator
-import kotlin.browser.document
-import kotlin.browser.window
 
 /**
  * The "driver" singleton which can be called from Javascript for all functionality.

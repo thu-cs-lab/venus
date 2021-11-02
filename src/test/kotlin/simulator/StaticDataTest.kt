@@ -31,9 +31,9 @@ class StaticDataTest {
         val linked = Linker.link(listOf(prog))
         val sim = Simulator(linked)
         val offset = MemorySegments.STATIC_BEGIN
-        assertEquals('a'.toInt(), sim.loadByte(offset))
+        assertEquals('a'.code, sim.loadByte(offset))
         assertEquals(0, sim.loadByte(offset + 1))
-        assertEquals('b'.toInt(), sim.loadByte(offset + 2))
+        assertEquals('b'.code, sim.loadByte(offset + 2))
         assertEquals(0, sim.loadByte(offset + 3))
     }
 

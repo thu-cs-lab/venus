@@ -1,6 +1,7 @@
 package venus.glue
 /* ktlint-disable no-wildcard-imports */
 
+import kotlinx.browser.document
 import org.w3c.dom.*
 import venus.assembler.AssemblerError
 import venus.riscv.InstructionField
@@ -8,7 +9,6 @@ import venus.riscv.MachineCode
 import venus.riscv.MemorySegments
 import venus.riscv.insts.dsl.Instruction
 import venus.simulator.*
-import kotlin.browser.document
 
 /* ktlint-enable no-wildcard-imports */
 

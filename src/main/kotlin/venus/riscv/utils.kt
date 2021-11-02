@@ -27,15 +27,15 @@ private fun isCharacterLiteral(s: String) =
 
 private fun characterLiteralToInt(s: String): Int {
     val stripSingleQuotes = s.drop(1).dropLast(1)
-    if (stripSingleQuotes == "\\'") return '\''.toInt()
-    if (stripSingleQuotes == "\"") return '"'.toInt()
+    if (stripSingleQuotes == "\\'") return '\''.code
+    if (stripSingleQuotes == "\"") return '"'.code
 
     val jsonString = "\"$stripSingleQuotes\""
     try {
         val parsed = JSON.parse<String>(jsonString)
         if (parsed.isEmpty()) throw NumberFormatException("character literal $s is empty")
         if (parsed.length > 1) throw NumberFormatException("character literal $s too long")
-        return parsed[0].toInt()
+        return parsed[0].code
     } catch (e: Throwable) {
         throw NumberFormatException("could not parse character literal $s")
     }
