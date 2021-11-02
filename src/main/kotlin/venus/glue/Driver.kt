@@ -14,7 +14,7 @@ import kotlin.browser.window
 /**
  * The "driver" singleton which can be called from Javascript for all functionality.
  */
-@JsName("Driver") object Driver {
+@JsExport @JsName("Driver") object Driver {
     lateinit var sim: Simulator
     private var timer: Int? = null
 

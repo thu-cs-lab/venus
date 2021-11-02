@@ -8,7 +8,7 @@ package venus.assembler
  * At the moment this implemented by just running the assembler outright, unless the text is too long.
  * A more intelligent approach would run the linter on each line incrementally.
  */
-@JsName("Linter") object Linter {
+@JsExport @JsName("Linter") object Linter {
     /**
      * Lints the given text, which is expected to be an entire assembly file
      *

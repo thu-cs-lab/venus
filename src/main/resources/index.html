@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>venus</title>
   <link rel="stylesheet" type="text/css" href="css/venus.css">
+  <link rel="stylesheet" type="text/css" href="css/bulma.css">
+  <link rel="stylesheet" type="text/css" href="css/codemirror.css">
 </head>
 <body>
 <div class="tabs is-boxed is-centered">
@@ -611,9 +613,10 @@
   </div>
 </section>
 <script type="text/javascript" src="js/codemirror.js"></script>
+<script type="text/javascript" src="js/risc-mode.js"></script>
 <script type="text/javascript" src="venus.js"></script>
 <script type="text/javascript">
-    var driver = venus_main.venus.glue.Driver;
+    var driver = venus.venus.glue.Driver;
     var editor = document.getElementById("asm-editor");
     var codeMirror = CodeMirror.fromTextArea(editor,
         {
