@@ -337,11 +337,12 @@ internal object Renderer {
      * @param rowAddr the new address of that row
      */
     private fun renderMemoryRow(row: HTMLElement, rowAddr: Int) {
-        val tdAddress = row.childNodes[0] as HTMLTableCellElement
+        val rowElement = row as HTMLTableRowElement
+        val tdAddress = rowElement.cells[0] as HTMLTableCellElement
         if (rowAddr >= 0) {
             tdAddress.innerText = toHex(rowAddr)
             for (i in 1..4) {
-                val tdByte = row.childNodes[i] as HTMLTableCellElement
+                val tdByte = rowElement.cells[i] as HTMLTableCellElement
                 val byte = sim.loadByte(rowAddr + i - 1)
                 tdByte.innerText = when (displayType) {
                     "Hex" -> byteToHex(byte)
@@ -352,9 +353,9 @@ internal object Renderer {
                 }
             }
         } else {
-            tdAddress.innerText = "----------"
+            tdAddress.textContent = "----------"
             for (i in 1..4) {
-                val tdByte = row.childNodes[i] as HTMLTableCellElement
+                val tdByte = row.cells[i] as HTMLTableCellElement
                 tdByte.innerText = "--"
             }
         }
